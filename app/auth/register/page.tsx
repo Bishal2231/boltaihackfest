@@ -157,7 +157,8 @@ export default function RegisterPage() {
                     required
                   />
                   <p className="text-sm text-gray-500 text-center">
-                    Demo code: <strong>{serverVerificationCode}</strong>
+                    Demo code: <strong>{serverVerificationCode}  </strong>
+                    <p> Please Check your Email</p>
                   </p>
                 </div>
 
