@@ -29,7 +29,6 @@ export default function RecentAlerts() {
   const [alerts, setAlerts] = useState<Alert[]>([]);
 
   useEffect(() => {
-    // Generate mock alerts
     const mockAlerts: Alert[] = [
       {
         id: '1',
@@ -75,7 +74,6 @@ export default function RecentAlerts() {
 
     setAlerts(mockAlerts);
 
-    // Simulate new alerts
     const interval = setInterval(() => {
       if (Math.random() > 0.7) {
         const newAlert: Alert = {
@@ -88,7 +86,6 @@ export default function RecentAlerts() {
           status: 'active',
           priority: Math.random() > 0.5 ? 'critical' : 'high'
         };
-        
         setAlerts(prev => [newAlert, ...prev.slice(0, 9)]);
       }
     }, 10000);
@@ -114,9 +111,11 @@ export default function RecentAlerts() {
       active: 'destructive',
       investigating: 'default',
       resolved: 'secondary'
-    };
-    return variants[status as keyof typeof variants] || 'secondary';
+    } as const;
+  
+    return variants[status as keyof typeof variants] ?? 'secondary';
   };
+  
 
   const getPriorityBadge = (priority: string) => {
     const variants = {
@@ -124,15 +123,17 @@ export default function RecentAlerts() {
       high: 'destructive',
       medium: 'default',
       low: 'secondary'
-    };
-    return variants[priority as keyof typeof variants] || 'secondary';
+    } as const;
+  
+    return variants[priority as keyof typeof variants] ?? 'secondary';
   };
+  
 
   const formatTimeAgo = (timestamp: Date) => {
     const diff = Date.now() - timestamp.getTime();
     const minutes = Math.floor(diff / 60000);
     const hours = Math.floor(minutes / 60);
-    
+
     if (hours > 0) return `${hours}h ago`;
     if (minutes > 0) return `${minutes}m ago`;
     return 'Just now';
@@ -170,7 +171,7 @@ export default function RecentAlerts() {
                       </div>
                     )}
                   </div>
-                  
+
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between mb-1">
                       <h4 className="text-sm font-medium text-gray-900 truncate">
@@ -180,16 +181,16 @@ export default function RecentAlerts() {
                         {getStatusIcon(alert.status)}
                       </div>
                     </div>
-                    
+
                     <p className="text-sm text-gray-600 mb-2">
                       {alert.type === 'fire' ? 'Fire detected' : 'Gas leak detected'}
                     </p>
-                    
+
                     <div className="flex items-center text-xs text-gray-500 mb-2">
                       <MapPin className="h-3 w-3 mr-1" />
                       <span className="truncate">{alert.location}</span>
                     </div>
-                    
+
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Badge variant={getStatusBadge(alert.status)} className="text-xs">
@@ -199,7 +200,7 @@ export default function RecentAlerts() {
                           {alert.priority}
                         </Badge>
                       </div>
-                      
+
                       <div className="flex items-center text-xs text-gray-500">
                         <Clock className="h-3 w-3 mr-1" />
                         {formatTimeAgo(alert.timestamp)}
@@ -211,7 +212,7 @@ export default function RecentAlerts() {
             )}
           </div>
         </ScrollArea>
-        
+
         {alerts.length > 0 && (
           <div className="mt-4 pt-4 border-t">
             <Button variant="outline" className="w-full">

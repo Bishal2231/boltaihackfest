@@ -22,6 +22,20 @@ export default function RootLayout({
         <Navbar />
         <main>{children}</main>
         <Toaster />
+
+        {/* 🚀 Bolt Hackathon Badge */}
+        <a
+          href="https://bolt.new"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed top-4 right-4 z-50 hover:scale-110 transition-transform"
+        >
+          <img
+            src="https://github.com/kickiniteasy/bolt-hackathon-badge/raw/main/src/public/bolt-badge/white_circle_360x360/white_circle_360x360.png"
+            alt="Built with Bolt"
+            className="w-20 h-20"
+          />
+        </a>
       </body>
     </html>
   );
