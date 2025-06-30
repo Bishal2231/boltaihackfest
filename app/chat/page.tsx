@@ -26,6 +26,7 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>(mockChatMessages);
   const [newMessage, setNewMessage] = useState('');
   const [onlineUsers, setOnlineUsers] = useState<User[]>(mockUsers);
+  const [isMounted, setIsMounted] = useState(false);
 
   const handleSendMessage = () => {
     if (!newMessage.trim() || !selectedRoom) return;

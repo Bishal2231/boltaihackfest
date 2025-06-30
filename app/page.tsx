@@ -44,8 +44,10 @@ export default function Dashboard() {
     lastUpdate: new Date(),
     activeAlerts: 1
   });
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     // Simulate WebSocket connection for real-time data
     const interval = setInterval(() => {
       setRealTimeData(prev => ({
@@ -246,7 +248,7 @@ export default function Dashboard() {
             <div className="flex items-center justify-between text-sm text-gray-600">
               <div className="flex items-center gap-2">
                 <Clock className="h-4 w-4" />
-                Last updated: {realTimeData.lastUpdate.toLocaleTimeString()}
+                Last updated: {isMounted ? realTimeData.lastUpdate.toLocaleTimeString() : ''}
               </div>
               <div className="text-right">
                 <p>FireGuard Community Safety Platform</p>
