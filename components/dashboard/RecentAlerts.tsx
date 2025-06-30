@@ -106,24 +106,28 @@ export default function RecentAlerts() {
     }
   };
 
-  const getStatusBadge = (status: string): "secondary" | "destructive" | "default" | "outline" => {
+  const getStatusBadge = (status: string) => {
     const variants = {
       active: 'destructive',
       investigating: 'default',
       resolved: 'secondary'
-    };
-    return variants[status as keyof typeof variants] || 'secondary';
+    } as const;
+  
+    return variants[status as keyof typeof variants] ?? 'secondary';
   };
+  
 
-  const getPriorityBadge = (priority: string): "secondary" | "destructive" | "default" | "outline" => {
+  const getPriorityBadge = (priority: string) => {
     const variants = {
       critical: 'destructive',
       high: 'destructive',
       medium: 'default',
       low: 'secondary'
-    };
-    return variants[priority as keyof typeof variants] || 'secondary';
+    } as const;
+  
+    return variants[priority as keyof typeof variants] ?? 'secondary';
   };
+  
 
   const formatTimeAgo = (timestamp: Date) => {
     const diff = Date.now() - timestamp.getTime();
